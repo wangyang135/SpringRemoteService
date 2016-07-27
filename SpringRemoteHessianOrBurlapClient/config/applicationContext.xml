@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+		
+		<!-- <bean id = "userService" class="cn.wy.service.impl.UserServiceImpl"></bean> -->
+		
+		<bean name = "userServiceRemote" class = "org.springframework.remoting.caucho.HessianProxyFactoryBean">
+			<!-- 链接根据项目的名称以及自己定义的服务名称进行设置  -->
+			<property name="serviceUrl" value = "http://127.0.0.1:8080/SpringRemote/userService.service"></property>
+			<property name="serviceInterface" value = "cn.wy.service.UserService"></property>
+		</bean>
+		
+		<bean name = "userServiceBurlap" class = "org.springframework.remoting.caucho.BurlapProxyFactoryBean">
+			<property name="serviceUrl" value = "http://127.0.0.1:8080/SpringRemote/userServiceBurlap.service"></property>
+			<property name="serviceInterface" value = "cn.wy.service.UserService"></property>
+		</bean>
+		
+		<context:annotation-config></context:annotation-config>
+</beans>
